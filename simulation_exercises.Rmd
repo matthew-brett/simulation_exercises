@@ -1,0 +1,191 @@
+---
+title: "Simulation exercises"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Simulation exercises
+
+## Two girls out of six
+
+Of all families with exactly six children, what proportion have exactly two
+girls?
+
+Assume that each child has a 50% chance of being a girl.
+
+Have a look at the `siumulation.Rmd` notebook from the lecture for inspiration.
+
+First simulate one family of six children:
+
+```{r}
+six_randoms <- ...
+six_booleans <- six_randoms ...
+number_of_trues <- ...(six_booleans)
+```
+
+Now write a `for` loop to simulate five families:
+
+```{r}
+counts <- numeric(5)
+for ( ... in ...) {
+  six_randoms <- ...
+  six_booleans <- six_randoms ...
+  number_of_trues <- ...(six_booleans)
+  counts[ ... ] <- number_of_trues
+}
+# Show the counts
+counts
+```
+
+Show how many of the values in `counts` are equal to 2:
+
+```{r}
+sum(counts ...)
+```
+
+Now you are ready for the whole thing.  Simulate 10000 families:
+
+```{r}
+n_repeats <- 10000
+counts <- numeric( ...)
+for ( ... in ...) {
+  six_randoms <- ...
+  six_booleans <- six_randoms ...
+  number_of_trues <- ...(six_booleans)
+  counts[ ... ] <- number_of_trues
+}
+# Show the first 10 counts
+...(counts, ...)
+```
+
+Show the number of counts that are equal to 2:
+
+```{r}
+n_eq_2 <- sum(counts ...)
+n_eq_2
+```
+
+Finally, show the proportion of counts that are equal to 2, by dividing by the number of families you simulated.
+
+```{r}
+n_eq_2 / ...
+```
+
+Now show the proportion of families with exactly six children, that have
+six girls:
+
+```{r}
+n_eq_6 <- sum(counts ...)
+n_eq_6 / ...
+```
+
+You will find the answer is close to `0.5 ^ 6` (0.5 to the power of six). Can you explain why?  Call your demonstrator across if you want to check your explanation.
+
+How we get a little more difficult.
+
+We have assumed that the probability of any one child being a girl is 50% or 0.5.  In fact, the [proportion of boys born in the UK](https://www.gov.uk/government/statistics/gender-ratios-at-birth-in-great-britain-2010-to-2014)
+is 0.513.  Hence the proportion of girls is 1-0.513 = 0.487.
+
+Use this number to do a more realistic simulation of the chances of exactly
+2 girls in a family of six.
+
+```{r}
+p_girl <- 0.487
+n_repeats <- 10000
+counts <- numeric( ... )
+for ( ... in ...) {
+  six_randoms <- ...
+  six_booleans <- six_randoms ...
+  number_of_trues <- ...(six_booleans)
+  counts[ ... ] <- number_of_trues
+}
+n_eq_2 <- sum(counts ...)
+n_eq_2 / ...
+```
+
+Do a simulation to find what proportion of families with exactly 8 children have exactly 2 girls.
+
+```{r}
+n_repeats <- 10000
+counts <- numeric( ...)
+for ( ... in ...) {
+    # Get inspiration from the code in the previous simulation
+    ...
+}
+n_eq_2 <- sum(counts ...)
+n_eq_2 / ...
+```
+
+## Penalty shootout technique
+
+Jen is the penalty taker for her football team.
+
+She's been doing this for a long time.  She thinks she normally has a 80% chance of scoring.
+
+In the last 15 penalties she has taken, she has been trying a new technique. She scored on all 15 penalties.
+
+How certain can she be that this would not have happened, using the old technique?
+
+First we simulate one trial of 15 penalties:
+
+```{r}
+randoms <- runif( ... )
+random_booleans <- randoms < ...
+n_trues <- ...(random_booleans)
+```
+
+Run this a few times to get a feel for how likely we are to get 15 out of 15 goals (15 out of 15 TRUE values).
+
+Now do the simulation:
+
+```{r}
+n_repeats <- 10000
+counts <- numeric( ... )
+for ( ... in ...) {
+    randoms <- runif( ... )
+    random_booleans <- randoms < ...
+    n_trues <- ...(random_booleans)
+    counts[ ... ] <- ...
+}
+n_eq_15 <- sum(counts ...)
+n_eq_15 / ...
+```
+
+What do you think?  Is 15 / 15 a crazy outcome assuming Jen's chances are exactly the same as before, or should we conclude that something has changed?
+
+# Burkitt's lymphoma drug trial
+
+Burkitt's lymphoma is a cancer of the human lymph system.
+
+At the time I wrote this, you can find the following on the [Wikipedia page for Burkitt's Lymphoma](https://en.wikipedia.org/wiki/Burkitt%27s_lymphoma#Prognosis).
+
+> The overall cure rate for Burkitt's lymphoma in developed countries is
+> about 90%, but worse in low-income countries. Burkitt's lymphoma is
+> uncommon in adults, where it has a worse prognosis {%cite
+> molyneux2012burkitt %}
+>
+> In 2006, treatment with dose-adjusted EPOCH with Rituximab showed
+> promising initial results in a small series of patients (n=17), with
+> a 100% response rate, and 100% overall survival and progression-free
+> survival at 28 months (median follow-up) {%cite dunleavy2006novel %}
+
+How likely is it that these study results, or better, could have come
+about by chance?
+
+* Your model is that the EPOCH study was, in fact, no more effective than any other standard therapy, and that they were just lucky, in finding that 100% of their patients were cured.
+* You are going to do a simulation, using this model.  In this simulation, you will make 17 simulated patients, each with a 90% chance of being cured.  Then count how many of the 17 patients were cured.
+* Do this many times, to see how likely you are to get the value 17 / 17 (100%).
+
+```{r}
+n_repeats <- 1000
+counts <- ...
+for ( ... in ... ) {
+    # You will need several lines here
+    ...
+    counts[ ... ] <- ...
+}
+n_eq_17 <- ...
+# Show the proportion
+...
+```
